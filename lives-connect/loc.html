@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Locations Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        #header {
+            background-color: #2196F3;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        #map-container {
+            display: flex;
+        }
+
+        #map {
+            flex: 1;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #distance {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+
+        h2 {
+            color: #2196F3;
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 5px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="header">
+            <h1>Friend Locations Map</h1>
+        </div>
+        <div id="map-container">
+            <div id="distance"></div>
+            <div id="map"></div>
+        </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtkCWp1OBa-fBuO0gOxmVOqFHDGuB57rE&callback=initMap"
+        async defer></script>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 20.5937, lng: 78.9629 }, // Default center for India
+                zoom: 5 // Default zoom level
+            });
+
+            // Call a function to add markers for each friend's location
+            addMarkers();
+
+            // Get user's current location
+            getCurrentLocation();
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+
+            var distancesHTML = "<h2>Distances:</h2>";
+
+            // Loop through the friend locations and calculate distances
+            friendsLocations.forEach(function (friend) {
+                const friendLat = friend.location.lat;
+                const friendLon = friend.location.lng;
+                const distance = calculateDistance(userLat, userLon, friendLat, friendLon);
+                distancesHTML += `<p>Distance to ${friend.name}: ${distance.toFixed(2)} km</p>`;
+            });
+
+            // Display distances
+            document.getElementById('distance').innerHTML = distancesHTML;
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in kilometers
+            const dLat = (lat2 - lat1) * Math.PI / 180; // Convert degrees to radians
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c; // Distance in kilometers
+            return distance;
+        }
+
+        var friendsLocations = [
+            { name: 'Friend 1', location: { lat: 28.6139, lng: 77.2090 } }, // Delhi
+            { name: 'Friend 2', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
+            { name: 'Friend 3', location: { lat: 18.5204, lng: 73.8567 } }, // Pune
+            { name: 'Friend 4', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
+            { name: 'Friend 5', location: { lat: 19.0760, lng: 72.8777 } }, // Mumbai
+            { name: 'Friend 6', location: { lat: 13.0827, lng: 80.2707 } }, // Chennai
+            { name: 'Friend 7', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
+            { name: 'Friend 8', location: { lat: 17.3850, lng: 78.4867 } }, // Hyderabad
+            { name: 'Friend 9', location: { lat: 25.5941, lng: 85.1376 } }, // Patna
+            { name: 'Friend 10', location: { lat: 23.2599, lng: 77.4126 } }, // Bhopal
+            { name: 'Friend 11', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
+            { name: 'Friend 12', location: { lat: 28.7041, lng: 77.1025 } }, // Noida
+            { name: 'Friend 13', location: { lat: 26.8467, lng: 80.9462 } }, // Lucknow
+            { name: 'Friend 14', location: { lat: 31.1048, lng: 77.1734 } }, // Shimla
+            { name: 'Friend 15', location: { lat: 15.2993, lng: 74.1240 } }, // Belgaum
+            { name: 'Friend 16', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
+            { name: 'Friend 17', location: { lat: 19.9975, lng: 73.7898 } }, // Nashik
+            { name: 'Friend 18', location: { lat: 9.9252, lng: 78.1198 } }, // Madurai
+            { name: 'Friend 19', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
+            { name: 'Friend 20', location: { lat: 26.8467, lng: 80.9462 } }  // Lucknow
+            // Add more friend locations here...
+        ];
+
+        function addMarkers() {
+            // Add markers for each friend
+            friendsLocations.forEach(function (friend) {
+                var marker = new google.maps.Marker({
+                    position: friend.location,
+                    map: map,
+                    title: friend.name
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
