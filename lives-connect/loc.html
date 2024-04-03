@@ -2,10 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friend Locations Map</title>
-    <style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friend Locations Map</title>
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/all.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/fancybox.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/loc.css">
+  <!-- <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -23,11 +31,15 @@
 
         #map-container {
             display: flex;
+            width: 1200px;
+            margin: auto;
+            gap: 50px;
+
         }
 
         #map {
             flex: 1;
-            height: 400px;
+            height: 600px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
@@ -55,110 +67,602 @@
             margin-bottom: 5px;
             color: #666;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
-    <div class="container">
-        <div id="header">
-            <h1>Friend Locations Map</h1>
-        </div>
-        <div id="map-container">
-            <div id="distance"></div>
-            <div id="map"></div>
-        </div>
+  <!--preloader start-->
+  <div class="preloader">
+    <h1>Lives Connect</h1>
+    <div class="preload-progress">
+      <span></span>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtkCWp1OBa-fBuO0gOxmVOqFHDGuB57rE&callback=initMap"
-        async defer></script>
-    <script>
-        var map;
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 20.5937, lng: 78.9629 }, // Default center for India
-                zoom: 5 // Default zoom level
-            });
+  </div>
+  <!--preloader end-->
 
-            // Call a function to add markers for each friend's location
-            addMarkers();
+  <!-- scroll to top -->
+  <div class="progress-wrap cursor-pointer active-progress">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+        style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 221.377;">
+      </path>
+    </svg>
+  </div>
+  <!-- scroll to top -->
 
-            // Get user's current location
-            getCurrentLocation();
-        }
+  <!-- header start -->
+  <header>
+    <!-- <div class="header_top d-none d-lg-block d-xl-block d-xxl-block">
+      <div class="container">
+        <div class="row">
+           <div class="col-xl-3 col-lg-3">
+            <div class="header_top_content">
+              <span><i class="fa-solid fa-phone"></i></span>
+              <a href="tel:01977259912">+01 (977) 2599 12</a>
+            </div>
+          </div> 
+          <div class="col-xl-3 col-lg-3">
+            <div class="header_top_content">
+              <span><i class="fa-solid fa-envelope"></i></span>
+              <a href="mailto:company@domin.com">company@domin.com</a>
+            </div>
+          </div>
+           <div class="col-xl-3 col-lg-3">
+            <div class="header_top_content">
+              <span><i class="fa-solid fa-location-dot"></i></span>
+              <a href="#">3146 Koontz Lane, USA</a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3">
+            <div class="header_top_social">
+              <p>Follow Now</p>
+              <ul class="d-flex">
+                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="header_bottom header_bottom2">
+      <div>
+        <div class="row align-items-center position-relative">
+          <div style="padding-left: 65px" class="col-xl-2 col-lg-2 col-md-4 col-6">
+            <div class="header_logo">
+              <a href="index.html"><img style="aspect-ratio: 3/2; object-fit: contain;" src="assets/images/logo.png"
+                  alt="images not founds" class="img-fluid"></a>
+            </div>
+          </div>
+          <div class="col-xl-7 col-lg-8 d-none d-xxl-block d-xl-block">
+            <ul class="main_menu">
+              <li class="position-relative">
+                <!-- <a href="javascript:void(0)">Home <i class="fa-solid fa-angle-down"></i></a> -->
+                <!-- <ul class="submenu_wrapper"> -->
+                <!-- <li><a href="index.html">Home 1</a></li>
+                  <li><a href="index-2.html">Home 2</a></li> -->
+              <li><a href="index-3.html">Home</a></li>
+              <!-- </ul> -->
+              </li>
+              <li><a href="about.html">About Us</a></li>
+              <li class="position-relative">
+                <a href="javascript:void(0)">Campaign <i class="fa-solid fa-angle-down"></i></a>
+                <ul class="submenu_wrapper">
+                  <li><a href="campaign.html">Campaign </a></li>
+                  <li><a href="campaign-details.html">Campaign Details</a></li>
+                </ul>
+              </li>
+              <li><a href="loc.html">Nearby Donors</a></li>
+              <li><a href="donation-history.html">Donation History</a></li>
+              <li><a href="recipient-history.html">Recipient History</a></li>
+              <!-- <li>
+                <a href="javascript:void(0)">Pages <i class="fa-solid fa-angle-down"></i></a>
+                <div class="bi_megamenu">
+                  <div class="megamenu_row">
+                    <div class="megamenu-column border-end">
+                      <h6 class="column-title">Home</h6>
+                      <ul class="pages_list">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                        <li><a href="index-3.html">Home 3</a></li>
+                      </ul>
+                    </div>
+                    <div class="megamenu-column border-end">
+                      <h6 class="column-title">Pages</h6>
+                      <ul class="pages_list">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="service.html">Service</a></li>
+                        <li><a href="service-details.html">Service Details</a></li>
+                        <li><a href="team-member.html">Team Member</a></li>
+                        <li><a href="terms.html">Terms & Condation</a></li>
+                        <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                      </ul>
+                    </div>
+                    <div class="megamenu-column border-end">
+                      <h6 class="column-title">Pages</h6>
+                      <ul class="pages_list">
+                        <li><a href="photo-gallary.html">photo-gallary</a></li>
+                        <li><a href="faq.html">faq</a></li>
+                        <li><a href="campaign.html">Campaign</a></li>
+                        <li><a href="campaign-details.html">Campaign Details</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="register.html">Contract</a></li>
+                        <li><a href="404.html">404</a></li>
+                      </ul>
+                    </div>
+                    <div class="megamenu-column border-end">
+                      <h6 class="column-title">Blog</h6>
+                      <ul class="pages_list">
+                        <li><a href="blog-default.html">Blog Default</a></li>
+                        <li><a href="blog-details.html">Blog Details</a></li>
+                        <li><a href="blog-style1.html">Blog Style 1</a></li>
+                        <li><a href="blog-style2.html">Blog style 2</a></li>
+                        <li><a href="blog-details-left-sidebar.html">Blog Leftsidebar</a></li>
+                        <li><a href="blog-details-right-sidebar.html">Blog Rightsidebar</a></li>
+                      </ul>
+                    </div>
+                    <div class="megamenu-column banner">
+                      <div class="megamenu-banner img">
+                        <div class="row ">
+                          <div class="col-12">
+                            <div class="fblog_img img">
+                              <a href="blog-details.html"><img src="assets/images/f1.jpg" class="w-100" alt=""></a>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="fblog_content">
+                              <a href="blog-details.html"> A Formula For Help And Happiness</a>
+                              <span>18 February, 2022</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li> -->
+              <!-- <li class="position-relative">
+                <a href="javascript:void(0)">Blog <i class="fa-solid fa-angle-down"></i></a>
+                <ul class="submenu_wrapper">
+                  <li><a href="blog-default.html">Blog</a></li>
+                  <li><a href="blog-details.html">Blog Details</a></li>
+                  <li><a href="blog-details-left-sidebar.html">Blog Leftsidebar</a></li>
+                  <li><a href="blog-details-right-sidebar.html">Blog rightsidebar</a></li>
+                  <li><a href="blog-style1.html">Blog style 1</a></li>
+                  <li><a href="blog-style2.html">Blog style 2</a></li>
+                </ul>
+              </li> -->
+              <!-- <li><a href="contact.html">Contact</a></li> -->
+            </ul>
+          </div>
+          <div class="col-lg-2  d-none d-xxl-block d-xl-block">
+            <div class="header_search_menu d-flex">
+              <div class="dropdown dropdown_search">
+                <button class="search-btn " data-bs-toggle="dropdown" aria-expanded="true"><i
+                    class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
+                  <form class="search-form d-flex align-items-center gap-2">
+                    <input type="text" placeholder="Search..." class="theme-input bg-transparent">
+                    <button type="submit" class="submit-btn">Go</button>
+                  </form>
+                </div>
+              </div>
 
-        function getCurrentLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
-        }
+              <div>
+                <a href="login.html" class="red_btn get_code">Login</a>
+              </div>
 
-        function showPosition(position) {
-            const userLat = position.coords.latitude;
-            const userLon = position.coords.longitude;
+            </div>
+          </div>
 
-            var distancesHTML = "<h2>Distances:</h2>";
+          <!-- mobile menu bar -->
+          <div class="col-lg-10 col-md-8 col-6 d-block d-xxl-none d-xl-none">
+            <div class="d-flex align-items-center gap-2 justify-content-end">
+              <div class="dropdown dropdown_search">
+                <button class="search-btn " data-bs-toggle="dropdown" aria-expanded="true"><i
+                    class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
+                  <form class="search-form d-flex align-items-center gap-2">
+                    <input type="text" placeholder="Search..." class="theme-input bg-transparent">
+                    <button type="submit" class="submit-btn">Go</button>
+                  </form>
+                </div>
+              </div>
+              <div class="mobile_menu">
+                <button class="header_toggle_btn bg-transparent border-0" type="button" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvas-mobile">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- header end -->
 
-            // Loop through the friend locations and calculate distances
-            friendsLocations.forEach(function (friend) {
-                const friendLat = friend.location.lat;
-                const friendLon = friend.location.lng;
-                const distance = calculateDistance(userLat, userLon, friendLat, friendLon);
-                distancesHTML += `<p>Distance to ${friend.name}: ${distance.toFixed(2)} km</p>`;
-            });
+  <!-- breadcrumb start -->
+  <div class="breadcrumb_section overflow-hidden ptb-150">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-8 col-sm-10 col-12 text-center">
+          <h2>Nearby Donors</h2>
+          <ul>
+            <li><a href="index-3.html">Home</a></li>
+            <li class="active"> Nearby Donors</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- breadcrumb end -->
 
-            // Display distances
-            document.getElementById('distance').innerHTML = distancesHTML;
-        }
+  <section class="request3 gray_bg ptb-115">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-xl-7 col-lg-8 col-md-10  col-12">
+          <div class="common_title text-center">
+            <p>registration</p>
+            <h2>Your Donation Can Make Someone Life Better</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-12 mb-4 mb-xl-0 mb-lg-0">
+          <!-- <div class="current1"> -->
+            <div id="distance"></div>
+          <!-- </div> -->
 
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius of the Earth in kilometers
-            const dLat = (lat2 - lat1) * Math.PI / 180; // Convert degrees to radians
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c; // Distance in kilometers
-            return distance;
-        }
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        var friendsLocations = [
-            { name: 'Friend 1', location: { lat: 28.6139, lng: 77.2090 } }, // Delhi
-            { name: 'Friend 2', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
-            { name: 'Friend 3', location: { lat: 18.5204, lng: 73.8567 } }, // Pune
-            { name: 'Friend 4', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
-            { name: 'Friend 5', location: { lat: 19.0760, lng: 72.8777 } }, // Mumbai
-            { name: 'Friend 6', location: { lat: 13.0827, lng: 80.2707 } }, // Chennai
-            { name: 'Friend 7', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
-            { name: 'Friend 8', location: { lat: 17.3850, lng: 78.4867 } }, // Hyderabad
-            { name: 'Friend 9', location: { lat: 25.5941, lng: 85.1376 } }, // Patna
-            { name: 'Friend 10', location: { lat: 23.2599, lng: 77.4126 } }, // Bhopal
-            { name: 'Friend 11', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
-            { name: 'Friend 12', location: { lat: 28.7041, lng: 77.1025 } }, // Noida
-            { name: 'Friend 13', location: { lat: 26.8467, lng: 80.9462 } }, // Lucknow
-            { name: 'Friend 14', location: { lat: 31.1048, lng: 77.1734 } }, // Shimla
-            { name: 'Friend 15', location: { lat: 15.2993, lng: 74.1240 } }, // Belgaum
-            { name: 'Friend 16', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
-            { name: 'Friend 17', location: { lat: 19.9975, lng: 73.7898 } }, // Nashik
-            { name: 'Friend 18', location: { lat: 9.9252, lng: 78.1198 } }, // Madurai
-            { name: 'Friend 19', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
-            { name: 'Friend 20', location: { lat: 26.8467, lng: 80.9462 } }  // Lucknow
-            // Add more friend locations here...
-        ];
+  <!-- footer section start -->
+  <footer>
+    <div class="footer_top pt-115">
+      <div class="container ">
+        <div class="row border-bottom justify-content-center">
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+            <div class="footer_content">
+              <h5>About Us</h5>
+              <p>Welcome to the Lives Connect, where every drop counts toward saving lives and fostering hope. </p>
+              <ul>
+                <!-- <li><span>Phone:</span> +1(456)657-887, 999</li> -->
+                <li><span>Email:</span> livesconnect@gmail.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-2 col-md-6 col-6 mb-4">
+            <div class="footer_content">
+              <h5>Quick Links</h5>
+              <ul>
+                <li><a href="#"><i class="fa-solid fa-angles-right"></i> Home</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-angles-right"></i> About Us</a></li>
+                <li><a href="campaign.html"><i class="fa-solid fa-angles-right"></i> New Campaign</a></li>
+                <li><a href="blog-details.html"><i class="fa-solid fa-angles-right"></i> Latest News</a></li>
+                <li><a href="loc.html"><i class="fa-solid fa-angles-right"></i>Nearby Donors</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="col-xl-2 col-lg-2 col-md-6 col-6 mb-4">
+            <div class="footer_content">
+              <h5>Our Services</h5>
+              <ul>
+                <li><a href="donate.html"><i class="fa-solid fa-angles-right"></i> Blood Donation</a></li>
+                <li><a href="#"><i class="fa-solid fa-angles-right"></i> Health Check</a></li>
+                <li><a href="donate.html"><i class="fa-solid fa-angles-right"></i> Blood Bank</a></li>
+                <li><a href="donate.html"><i class="fa-solid fa-angles-right"></i> Donate Process</a></li>
+                <li><a href="donate.html"><i class="fa-solid fa-angles-right"></i> Blood Info</a></li>
+              </ul>
+            </div>
+          </div> -->
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="footer_content">
+              <h5>Latest News</h5>
+              <div class="footer_blog">
+                <div class="fblog_item mb-3">
+                  <div class="row align-items-center">
+                    <div class="col-4">
+                      <div class="fblog_img img">
+                        <a href="blog-details.html"><img src="assets/images/f1.jpg" alt=""></a>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                      <div class="fblog_content">
+                        <a href="blog-details.html"> A Formula For Help And Happiness</a>
+                        <span>25 March, 2024</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-        function addMarkers() {
-            // Add markers for each friend
-            friendsLocations.forEach(function (friend) {
-                var marker = new google.maps.Marker({
-                    position: friend.location,
-                    map: map,
-                    title: friend.name
-                });
-            });
-        }
-    </script>
+                <div class="fblog_item mb-3">
+                  <div class="row align-items-center">
+                    <div class="col-4">
+                      <div class="fblog_img img">
+                        <a href="blog-details.html"><img src="assets/images/f2.jpg" alt=""></a>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                      <div class="fblog_content">
+                        <a href="blog-details.html"> Donation is hope for poor helpless children</a>
+                        <span>2 February, 2024</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row footer_middle">
+          <div class="col-xl-6 col-lg-6 col-12 mb-5">
+            <div class="footer_subscrive">
+              <h6>Subscribe us for more update & news !!</h6>
+              <form action="#">
+                <input type="email" placeholder="Enter Your Email">
+                <button class="red_btn" type="submit">Subscribe</button>
+              </form>
+            </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-12">
+            <div class="footer_social">
+              <ul
+                class="social_icon d-flex justify-content-xxl-end justify-content-xl-end justify-content-lg-end justify-content-center  gap-2">
+                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                <!-- <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li> -->
+              </ul>
+              <ul
+                class="page_link d-flex justify-content-xxl-end justify-content-xl-end justify-content-lg-end justify-content-center gap-2 flex-wrap">
+                <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                <li><a href="#">/</a></li>
+                <li><a href="terms.html">Terms & Condition</a></li>
+                <li><a href="#">/</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="footer_bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p>Copyright &copy; 2024 Lives Connect. All rights reserved</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </footer>
+  <!-- footer section end -->
+
+  <!-- mobile menu offcanvas -->
+  <div class="offcanvas offcanvas-start" id="offcanvas-mobile">
+    <div class="offcanvas-body">
+      <div class="mobile-menu">
+        <a href="index.html" class="logo py-3"><img src="assets/images/icon/red-logo.png" alt="logo"
+            class="img-fluid"></a>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+
+        <ul class="accordion accordion-flush mobile_dropdown" id="accordionFlushExample">
+          <li class="accordion-item">
+            <h2><a href="index-3.html">Home</a></h2>
+            <!-- <h2>
+              <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne" aria-expanded="false">
+                Home
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <ul>
+                  <li><a href="index.html">Home Page 1</a></li>
+                  <li><a href="index-2.html">Home Page 2</a></li>
+                  <li><a href="index-3.html">Home Page 3</a></li>
+                </ul>
+              </div>
+            </div> -->
+          </li>
+          <li class="accordion-item">
+            <h2><a href="about.html">About</a></h2>
+          </li>
+          <li class="accordion-item">
+            <h2>
+              <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapsetwo" aria-expanded="false">
+                Campaign
+              </button>
+            </h2>
+            <div id="flush-collapsetwo" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <ul>
+                  <li><a href="campaign.html">Campaign</a></li>
+                  <li><a href="campaign-details.html">Campaign Details</a></li>
+
+              </div>
+            </div>
+          </li>
+          <!-- <li class="accordion-item">
+            <h2>
+              <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapsetwo" aria-expanded="false">
+                Pages
+              </button>
+            </h2>
+            <div id="flush-collapsetwo" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <ul>
+                  <li><a href="service.html">service</a></li>
+                  <li><a href="service-details.html">service Details</a></li>
+                  <li><a href="faq.html">Faq</a></li>
+                  <li><a href="photo-gallary.html">Photo Gallary</a></li>
+                  <li><a href="donate.html">Donate</a></li>
+                  <li><a href="register.html">Registation</a></li>
+                  <li><a href="privacypolicy.html">Privacy policy</a></li>
+                  <li><a href="terms.html">Terms & Condition</a></li>
+                </ul>
+              </div>
+            </div>
+          </li> -->
+          <!-- <li class="accordion-item">
+            <h2>
+              <button class="accordion-button collapsed p-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-collapsethree" aria-expanded="false">
+                Blog
+              </button>
+            </h2>
+            <div id="flush-collapsethree" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <ul>
+                  <li><a href="blog-default.html">Blog</a></li>
+                  <li><a href="blog-details.html">Blog Details</a></li>
+                  <li><a href="blog-details-left-sidebar.html">Blog Left</a></li>
+                  <li><a href="blog-details-right-sidebar.html">Blog Right</a></li>
+                  <li><a href="blog-style1.html">Blog Style 1</a></li>
+                  <li><a href="blog-style2.html">Blog Style 2</a></li>
+                </ul>
+              </div>
+            </div>
+          </li> -->
+          <li class="accordion-item">
+            <h2><a href="loc.html">Nearby Donors</a></h2>
+          </li>
+          <li class="accordion-item">
+            <h2><a href="loc.html">Donation History</a></h2>
+          </li>
+          <li class="accordion-item">
+            <h2><a href="loc.html">Recipient History</a></h2>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Javascript Files -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/wow.js"></script>
+  <script src="assets/js/slick.js"></script>
+  <script src="assets/js/fancybox.js"></script>
+  <script src="assets/js/counterup.min.js"></script>
+  <script src="assets/js/progress-bar.js"></script>
+  <script src="assets/js/smooth-scroll.min.js"></script>
+  <script src="assets/js/nice-select.js"></script>
+  <script src="assets/js/waypoints.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 20.5937, lng: 78.9629 }, // Default center for India
+        zoom: 5 // Default zoom level
+      });
+
+      // Call a function to add markers for each friend's location
+      addMarkers();
+
+      // Get user's current location
+      getCurrentLocation();
+    }
+
+    function getCurrentLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      const userLat = position.coords.latitude;
+      const userLon = position.coords.longitude;
+
+      var distancesHTML = "<h4>Distances:</h4>";
+
+      // Loop through the friend locations and calculate distances
+      var nearest = 500000000.0;
+      var friendname = "None"
+      friendsLocations.forEach(function (friend) {
+        const friendLat = friend.location.lat;
+        const friendLon = friend.location.lng;
+        const distance = calculateDistance(userLat, userLon, friendLat, friendLon);
+        distancesHTML += `<li>Distance to ${friend.name}: ${distance.toFixed(2)} km</li>`;
+        // if(distance.toFixed(2) < nearest) {
+        //     console.log(nearest, distance.toFixed(2));
+        //     nearest = distance.toFixed(2);
+        //     friendname = friend.name;     
+        // }
+      });
+      // distancesHTML += `<p>Nearest donor is ${friendname} at ${nearest}  km</p>`
+      // Display distances
+      document.getElementById('distance').innerHTML = distancesHTML;
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radius of the Earth in kilometers
+      const dLat = (lat2 - lat1) * Math.PI / 180; // Convert degrees to radians
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distance in kilometers
+      return distance;
+    }
+
+    var friendsLocations = [
+      { name: 'Donor 1', location: { lat: 28.6139, lng: 77.2090 } }, // Delhi
+      { name: 'Donor 2', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
+      { name: 'Donor 3', location: { lat: 18.5204, lng: 73.8567 } }, // Pune
+      { name: 'Donor 4', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
+      { name: 'Donor 5', location: { lat: 19.0760, lng: 72.8777 } }, // Mumbai
+      { name: 'Donor 6', location: { lat: 13.0827, lng: 80.2707 } }, // Chennai
+      { name: 'Donor 7', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
+      { name: 'Donor 8', location: { lat: 17.3850, lng: 78.4867 } }, // Hyderabad
+      { name: 'Donor 9', location: { lat: 25.5941, lng: 85.1376 } }, // Patna
+      { name: 'Donor 10', location: { lat: 23.2599, lng: 77.4126 } }, // Bhopal
+      { name: 'Donor 11', location: { lat: 22.5726, lng: 88.3639 } }, // Kolkata
+      { name: 'Donor 12', location: { lat: 28.7041, lng: 77.1025 } }, // Noida
+      { name: 'Donor 13', location: { lat: 26.8467, lng: 80.9462 } }, // Lucknow
+      { name: 'Donor 14', location: { lat: 31.1048, lng: 77.1734 } }, // Shimla
+      { name: 'Donor 15', location: { lat: 15.2993, lng: 74.1240 } }, // Belgaum
+      { name: 'Donor 16', location: { lat: 26.9124, lng: 75.7873 } }, // Jaipur
+      { name: 'Donor 17', location: { lat: 19.9975, lng: 73.7898 } }, // Nashik
+      { name: 'Donor 18', location: { lat: 9.9252, lng: 78.1198 } }, // Madurai
+      { name: 'Donor 19', location: { lat: 12.9716, lng: 77.5946 } }, // Bangalore
+      { name: 'Donor 20', location: { lat: 26.8467, lng: 80.9462 } }  // Lucknow
+      // Add more friend locations here...
+    ];
+
+    function addMarkers() {
+      // Add markers for each friend
+      friendsLocations.forEach(function (friend) {
+        var marker = new google.maps.Marker({
+          position: friend.location,
+          map: map,
+          title: friend.name
+        });
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtkCWp1OBa-fBuO0gOxmVOqFHDGuB57rE&callback=initMap"
+    async defer></script>
+
 </body>
 
 </html>
